@@ -60,9 +60,10 @@
                     android:textSize="18sp"
                     android:fontFamily="@font/alata"/>
                 <TextView
+                    android:id="@+id/jumboPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="65.000/KG"
+                    android:text="XX.000/KG"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="14sp"

@@ -284,12 +284,12 @@ public class CurlView extends GLSurfaceView implements View.OnTouchListener,
 					mDragStartPos.x = rightRect.left;
 					startCurl(CURL_LEFT);
 				} else if (mDragStartPos.x >= halfX
-						&& mCurrentIndex < mPageProvider.getPageCount()) {
+						&& mCurrentIndex < mPageProvider.getPageCount()-1) {
 					mDragStartPos.x = rightRect.right;
-//					if (!mAllowLastPageCurl
-//							&& mCurrentIndex >= mPageProvider.getPageCount() - 1) {
-//						return false;
-//					}
+					if (!mAllowLastPageCurl
+							&& mCurrentIndex >= mPageProvider.getPageCount() - 1) {
+						return false;
+					}
 					startCurl(CURL_RIGHT);
 				}
 			}

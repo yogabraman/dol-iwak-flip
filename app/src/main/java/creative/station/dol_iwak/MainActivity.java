@@ -12,9 +12,14 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     PageCurlView pageCurlView;
     List<Integer> images;
     private CurlView mCurlView;
+    int index_page = 111;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,16 @@ public class MainActivity extends AppCompatActivity {
 //
 //        pageCurlView.setCurlView(images);
 //        pageCurlView.setCurlSpeed(10000);
+
+//        Log.i("CurrentIndex", "page : "+mCurlView.getCurrentIndex());
+
+        FloatingActionButton add = findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, mCurlView.getCurrentIndex()+"\n"+index_page, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -109,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
 //                page.setTexture(front, CurlPage.SIDE_BACK);
 //            }
 
+            index_page = index;
             Bitmap front = loadBitmap(width, height, index);
             page.setTexture(front, CurlPage.SIDE_BOTH);
 
@@ -162,6 +179,18 @@ public class MainActivity extends AppCompatActivity {
         private Bitmap loadBitmap(int width, int height, int index) {
             LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = inflater.inflate(mBitmapIds[index],null);
+
+            Log.i("CurrentLayout", getResources().getResourceEntryName(mBitmapIds[index]));
+
+//            View v = inflater.inflate(R.layout.activity_first,null);
+//            TextView jumboPrice = v.findViewById(R.id.jumboPrice);
+//            jumboPrice.setText("990000");
+
+            if(getResources().getResourceEntryName(mBitmapIds[index]).contains("first")){
+                TextView jumboPrice = v.findViewById(R.id.jumboPrice);
+                jumboPrice.setText("990000");
+            }
+
             v.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
             v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
             Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(),Bitmap.Config.ARGB_8888);
